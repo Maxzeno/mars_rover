@@ -13,6 +13,7 @@ class RoverCard extends StatelessWidget {
     final media = MediaQuery.of(context).size;
 
     return Card(
+      color: kWhiteColor,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(kDefaultSpace)),
       elevation: kDefaultSpace,
@@ -23,8 +24,7 @@ class RoverCard extends StatelessWidget {
             height: media.height * 0.3,
             radiusTop: kDefaultSpace,
           ),
-          Container(
-            color: kWhiteColor,
+          Padding(
             padding: const EdgeInsets.all(kDefaultSpace),
             child: Column(
               children: [

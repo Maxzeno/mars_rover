@@ -13,6 +13,7 @@ class HeaderSection extends StatelessWidget {
         Image(
           image: const AssetImage('assets/images/backdrop.png'),
           height: media.height * 0.4,
+          width: media.width,
           fit: BoxFit.cover,
           alignment: Alignment.topCenter,
         ),

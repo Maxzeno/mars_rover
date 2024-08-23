@@ -32,11 +32,9 @@ class _FilterScreenState extends State<FilterScreen> {
       firstDate: DateTime(1800, 8, 6),
       lastDate: DateTime.now(),
     );
-    if (picked != null && picked != _selectedDate) {
-      setState(() {
-        _selectedDate = picked;
-      });
-    }
+    setState(() {
+      _selectedDate = picked;
+    });
   }
 
   void _applyFilter() {
