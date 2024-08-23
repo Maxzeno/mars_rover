@@ -1,0 +1,2 @@
+* Will make the rover card a grid (on the row) or 2 on tablet screens and a 3 on laptop screen
+* Explore more into the NASA API
