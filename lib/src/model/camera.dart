@@ -12,7 +12,6 @@ class Camera {
   });
 
   factory Camera.fromJson(Map<String, dynamic> json) {
-    print(json);
     return Camera(
       id: json['id'],
       name: json['name'],
