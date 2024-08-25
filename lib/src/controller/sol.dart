@@ -19,8 +19,6 @@ class SolController extends GetxController {
     solData.value = null;
     update();
 
-    Get.snackbar('Error', 'Failed to fetch data');
-
     String url =
         'https://api.nasa.gov/mars-photos/api/v1/manifests/curiosity?api_key=$apiKey';
 
@@ -34,7 +32,6 @@ class SolController extends GetxController {
       solData.value = Sol.fromJson(data);
     } else {
       // Handle error
-      Get.snackbar('Error', 'Failed to fetch data');
     }
     isLoad.value = false;
     update();

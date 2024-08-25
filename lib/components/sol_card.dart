@@ -18,15 +18,31 @@ class SolCard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(kDefaultSpace),
-            child: Column(
-              children: [
-                Text(
-                  'Cameras: ${photo.cameras}',
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w500),
-                ),
-                Text('Date: ${dataParseFormater(photo.earthDate)}'),
-              ],
+            child: Expanded(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Sol: ${photo.sol}',
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                      Text('Date: ${dataParseFormater(photo.earthDate)}'),
+                    ],
+                  ),
+                  kSizedBox,
+                  Row(
+                    children: [
+                      Text(
+                        'Cameras: ${photo.cameras}',
+                        softWrap: true,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           )
         ],

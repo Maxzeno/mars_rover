@@ -17,7 +17,7 @@ class _FilterScreenState extends State<FilterScreen> {
   void _applyFilter() {
     debugPrint('Selected Camera: $_selectedCamera');
 
-    RoverController.instance.fetchRover(_selectedCamera ?? "all", widget.sol);
+    RoverController.instance.fetchRover(_selectedCamera ?? "", widget.sol);
   }
 
   @override
@@ -32,14 +32,14 @@ class _FilterScreenState extends State<FilterScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               DropdownMenu(
-                width: media.width - 185,
+                width: media.width - 175,
                 onSelected: (value) {
                   setState(() {
                     _selectedCamera = value;
                   });
                 },
                 menuHeight: 400,
-                hintText: "Camera Type (all)",
+                hintText: "Camera Type",
                 inputDecorationTheme: InputDecorationTheme(
                   errorStyle: const TextStyle(
                     color: kRedColor,

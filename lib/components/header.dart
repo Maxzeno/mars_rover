@@ -4,7 +4,8 @@ import 'package:mars_rover/src/constant.dart';
 
 class HeaderSection extends StatelessWidget {
   final bool back;
-  const HeaderSection({super.key, this.back = false});
+  final int? sol;
+  const HeaderSection({super.key, this.back = false, this.sol});
 
   void goBack() {
     Get.back();
@@ -26,10 +27,10 @@ class HeaderSection extends StatelessWidget {
         Positioned(
           width: media.width,
           bottom: 10,
-          child: const Center(
+          child: Center(
             child: Column(
               children: [
-                Image(
+                const Image(
                   image: AssetImage('assets/images/nasa1.png'),
                   height: 100,
                   width: 100,
@@ -38,8 +39,8 @@ class HeaderSection extends StatelessWidget {
                 ),
                 kSizedBox,
                 Text(
-                  'Mars Rover - Photos',
-                  style: TextStyle(
+                  'Mars Rover - ${sol == null ? "Photos" : "Sol: $sol"}',
+                  style: const TextStyle(
                       color: kWhiteColor,
                       fontSize: 30,
                       fontWeight: FontWeight.bold),
@@ -53,7 +54,12 @@ class HeaderSection extends StatelessWidget {
                 top: 10,
                 left: 10,
                 child: IconButton(
-                    onPressed: goBack, icon: const Icon(Icons.arrow_back)))
+                    onPressed: goBack,
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: kWhiteColor,
+                      size: 30,
+                    )))
             : const SizedBox()
       ],
     );
