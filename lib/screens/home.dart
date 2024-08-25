@@ -101,58 +101,72 @@ class _HomeScreenState extends State<HomeScreen> {
               hoverColor: kRedColor,
               hoverElevation: 50.0,
               child: const Icon(Icons.arrow_drop_up_rounded,
-                  size: 18, color: kWhiteColor),
+                  size: 40, color: kWhiteColor),
             )
           : const SizedBox(),
       body: SafeArea(
         maintainBottomViewPadding: true,
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            const HeaderSection(),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: kDefaultSpace * 2),
-              decoration: BoxDecoration(
-                  border: Border.all(width: 0),
-                  borderRadius:
-                      const BorderRadius.all(Radius.circular(kDefaultSpace))),
-              child: GetBuilder<SolController>(
-                initState: (state) => SolController.instance.fetchSol(),
-                builder: (controller) {
-                  if (controller.isLoad.value) {
-                    return const LoadingIndicator();
-                  }
+        child: GetBuilder<SolController>(
+            initState: (state) => SolController.instance.fetchSol(),
+            builder: (controller) {
+              return ListView(
+                controller: scrollController,
+                shrinkWrap: true,
+                children: [
+                  const HeaderSection(),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: kDefaultSpace * 2),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 0),
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(kDefaultSpace))),
+                    child: Builder(
+                      builder: (context) {
+                        if (controller.isLoad.value) {
+                          return const LoadingIndicator();
+                        }
 
-                  if (controller.retry.value) {
-                    return MyButton(
-                        onPressed: SolController.instance.fetchSol,
-                        text: 'Retry');
-                  }
+                        if (controller.retry.value) {
+                          return MyButton(
+                              onPressed: SolController.instance.fetchSol,
+                              text: 'Retry');
+                        }
 
-                  return ListView.separated(
-                    separatorBuilder: (context, index) => kSizedBox,
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: controller.solData.value!.photos.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          toRover(
-                              controller.solData.value!.photos[index].cameras,
-                              controller.solData.value!.photos[index].sol);
-                        },
-                        child: SolCard(
-                          photo: controller.solData.value!.photos[index],
+                        return ListView.separated(
+                          separatorBuilder: (context, index) => kSizedBox,
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: controller.photos.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                toRover(controller.photos[index].cameras,
+                                    controller.photos[index].sol);
+                              },
+                              child: SolCard(
+                                photo: controller.photos[index],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  kSizedBox,
+                  controller.isLoadMore.value
+                      ? const LoadingIndicator()
+                      : const Column(
+                          children: [
+                            kSizedBox,
+                            kSizedBox,
+                            kSizedBox,
+                          ],
                         ),
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-            kSizedBox
-          ],
-        ),
+                  kSizedBox
+                ],
+              );
+            }),
       ),
     );
   }
