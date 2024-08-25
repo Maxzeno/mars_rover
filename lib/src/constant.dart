@@ -5,6 +5,7 @@ const Color kRedColor = Color(0xFFEC2623);
 const Color kBlackColor = Color(0xFF000000);
 const Color kGreyColor = Color(0xFF757575);
 const Color kWhiteColor = Color(0xFFFFFFFF);
+const Color kGreenColor = Color(0xFF00D220);
 
 // height
 const kDefaultSpace = 10.0;

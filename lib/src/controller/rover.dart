@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:mars_rover/src/constant.dart';
+import 'package:mars_rover/src/controller/snackbar_controller.dart';
 import 'package:mars_rover/src/model/rover.dart';
 
 class RoverController extends GetxController {
@@ -31,7 +32,7 @@ class RoverController extends GetxController {
       final List<dynamic> data = jsonDecode(response.body)['photos'];
       roverData.value = data.map((e) => RoverImage.fromJson(e)).toList();
     } else {
-      // pop up something
+      MySnackbarController.errorSnack('Failed to fetch');
     }
     isLoad.value = false;
     update();
