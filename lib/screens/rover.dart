@@ -39,7 +39,9 @@ class _RoverScreenState extends State<RoverScreen> {
         child: ListView(
           shrinkWrap: true,
           children: [
-            const HeaderSection(),
+            const HeaderSection(
+              back: true,
+            ),
             FilterScreen(
               cameraTypes: widget.cameraTypes,
               sol: widget.sol,

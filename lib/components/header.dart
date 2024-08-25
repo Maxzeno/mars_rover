@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mars_rover/src/constant.dart';
 
 class HeaderSection extends StatelessWidget {
-  const HeaderSection({super.key});
+  final bool back;
+  const HeaderSection({super.key, this.back = false});
+
+  void goBack() {
+    Get.back();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +47,14 @@ class HeaderSection extends StatelessWidget {
               ],
             ),
           ),
-        )
+        ),
+        back
+            ? Positioned(
+                top: 10,
+                left: 10,
+                child: IconButton(
+                    onPressed: goBack, icon: const Icon(Icons.arrow_back)))
+            : const SizedBox()
       ],
     );
   }
