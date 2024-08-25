@@ -12,10 +12,12 @@ class SolController extends GetxController {
     return Get.find<SolController>();
   }
 
+  var retry = false.obs;
   var isLoad = false.obs;
   var solData = Rxn<Sol>();
 
   Future fetchSol() async {
+    retry.value = false;
     isLoad.value = true;
     solData.value = null;
     update();
@@ -32,6 +34,7 @@ class SolController extends GetxController {
       final dynamic data = jsonDecode(response.body)['photo_manifest'];
       solData.value = Sol.fromJson(data);
     } else {
+      retry.value = true;
       MySnackbarController.errorSnack('Failed to fetch');
     }
     isLoad.value = false;

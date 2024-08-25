@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mars_rover/components/button.dart';
 import 'package:mars_rover/src/constant.dart';
 import 'package:mars_rover/src/controller/rover.dart';
 
@@ -88,20 +89,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   );
                 }).toList(),
               ),
-              ElevatedButton(
-                onPressed: _applyFilter,
-                style: ElevatedButton.styleFrom(
-                  fixedSize: const Size.fromHeight(55),
-                  backgroundColor: kGreyColor,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(kDefaultSpace))),
-                ),
-                child: const Text(
-                  'Apply Filter',
-                  style: TextStyle(color: kWhiteColor),
-                ),
-              )
+              MyButton(onPressed: _applyFilter, text: 'Apply Filter')
             ],
           ),
           kSizedBox,

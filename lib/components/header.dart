@@ -39,7 +39,9 @@ class HeaderSection extends StatelessWidget {
                 ),
                 kSizedBox,
                 Text(
-                  'Mars Rover - ${sol == null ? "Photos" : "Sol: $sol"}',
+                  sol == null
+                      ? "Martian solar days"
+                      : "Martian solar day: $sol",
                   style: const TextStyle(
                       color: kWhiteColor,
                       fontSize: 30,

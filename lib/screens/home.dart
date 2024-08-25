@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mars_rover/components/button.dart';
 import 'package:mars_rover/components/header.dart';
 import 'package:mars_rover/components/loading_indicator.dart';
 import 'package:mars_rover/components/sol_card.dart';
@@ -64,6 +65,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (controller) {
                   if (controller.isLoad.value) {
                     return const LoadingIndicator();
+                  }
+
+                  if (controller.retry.value) {
+                    return MyButton(
+                        onPressed: SolController.instance.fetchSol,
+                        text: 'Retry');
                   }
 
                   return ListView.separated(

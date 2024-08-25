@@ -18,22 +18,22 @@ class SolCard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(kDefaultSpace),
-            child: Expanded(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Sol: ${photo.sol}',
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
-                      ),
-                      Text('Date: ${dataParseFormater(photo.earthDate)}'),
-                    ],
-                  ),
-                  kSizedBox,
-                  Row(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Sol: ${photo.sol}',
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                    Text('Date: ${dataParseFormater(photo.earthDate)}'),
+                  ],
+                ),
+                kSizedBox,
+                Expanded(
+                  child: Row(
                     children: [
                       Text(
                         'Cameras: ${photo.cameras}',
@@ -41,8 +41,8 @@ class SolCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           )
         ],

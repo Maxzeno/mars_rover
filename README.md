@@ -1,6 +1,6 @@
 # Mars Rover
 
-## Getting Started
+## Description
 
 Explore images of the missions to Mars - NASA Mars Rover API
 
