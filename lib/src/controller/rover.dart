@@ -15,13 +15,19 @@ class RoverController extends GetxController {
   var isLoad = false.obs;
   var roverData = <RoverImage>[].obs;
 
-  Future fetchRover(String cameraName, int sol) async {
+  Future fetchRover(int sol, String? cameraName) async {
     isLoad.value = true;
     roverData.value = [];
     update();
+    String url = '';
 
-    String url =
-        'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=$sol&camera=$cameraName&api_key=$apiKey';
+    if (cameraName == null) {
+      url =
+          'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=$sol&api_key=$apiKey&page=1';
+    } else {
+      url =
+          'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=$sol&camera=$cameraName&api_key=$apiKey&page=1';
+    }
 
     debugPrint(url);
     final response = await http.get(
@@ -30,7 +36,7 @@ class RoverController extends GetxController {
 
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body)['photos'];
-      roverData.value = data.map((e) => RoverImage.fromJson(e)).toList();
+      roverData.value += data.map((e) => RoverImage.fromJson(e)).toList();
     } else {
       MySnackbarController.errorSnack('Failed to fetch');
     }

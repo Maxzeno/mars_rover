@@ -20,3 +20,12 @@ String? dateFormaterForRequest(DateTime? date) {
   }
   return DateFormat('yyyy-MM-dd').format(date);
 }
+
+String listToString(List data) {
+  String res = '';
+  for (var element in data) {
+    res += element + ", ";
+  }
+
+  return res.substring(0, res.length - 2);
+}

@@ -34,7 +34,7 @@ class SolCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Cameras: ${photo.cameras}',
+                    'Cameras: ${listToString(photo.cameras)}',
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,

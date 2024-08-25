@@ -18,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final scrollController = ScrollController();
   bool isScrollToTopBtnVisible = false;
+
   Future<void> showMore() async {
     if (SolController.instance.photos.isEmpty) {
       return;

@@ -18,7 +18,7 @@ class _FilterScreenState extends State<FilterScreen> {
   void _applyFilter() {
     debugPrint('Selected Camera: $_selectedCamera');
 
-    RoverController.instance.fetchRover(_selectedCamera ?? "", widget.sol);
+    RoverController.instance.fetchRover(widget.sol, _selectedCamera);
   }
 
   @override
