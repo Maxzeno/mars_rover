@@ -16,15 +16,58 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final scrollController = ScrollController();
+  bool isScrollToTopBtnVisible = false;
+  Future<void> showMore() async {
+    if (SolController.instance.photos.isEmpty) {
+      return;
+    }
+
+    if (scrollController.offset >= scrollController.position.maxScrollExtent &&
+        !scrollController.position.outOfRange) {
+      SolController.instance.showPhotos();
+    }
+  }
+
+  Future<void> scrollToTop() async {
+    await scrollController.animateTo(
+      0.0,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+    setState(() {
+      isScrollToTopBtnVisible = false;
+    });
+  }
+
+  Future<void> scrollListener() async {
+    if (scrollController.position.pixels >= 200 &&
+        isScrollToTopBtnVisible != true) {
+      setState(() {
+        isScrollToTopBtnVisible = true;
+      });
+    }
+    if (scrollController.position.pixels < 200 &&
+        isScrollToTopBtnVisible == true) {
+      setState(() {
+        isScrollToTopBtnVisible = false;
+      });
+    }
+  }
+
   @override
   void initState() {
     Get.put(SolController());
+    scrollController.addListener(showMore);
+    scrollController.addListener(scrollListener);
     super.initState();
   }
 
   @override
   void dispose() {
     Get.delete<SolController>();
+    scrollController.dispose();
+    scrollController.removeListener(() {});
     super.dispose();
   }
 
@@ -48,6 +91,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBlackColor,
+      floatingActionButton: isScrollToTopBtnVisible
+          ? FloatingActionButton(
+              onPressed: scrollToTop,
+              backgroundColor: kRedColor,
+              enableFeedback: true,
+              mouseCursor: SystemMouseCursors.click,
+              tooltip: "Scroll to top",
+              hoverColor: kRedColor,
+              hoverElevation: 50.0,
+              child: const Icon(Icons.arrow_drop_up_rounded,
+                  size: 18, color: kWhiteColor),
+            )
+          : const SizedBox(),
       body: SafeArea(
         maintainBottomViewPadding: true,
         child: ListView(

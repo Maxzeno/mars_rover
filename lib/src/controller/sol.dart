@@ -15,6 +15,9 @@ class SolController extends GetxController {
   var retry = false.obs;
   var isLoad = false.obs;
   var solData = Rxn<Sol>();
+  var photos = <Photos>[].obs;
+  var index = 0;
+  var length = 10;
 
   Future fetchSol() async {
     retry.value = false;
@@ -33,11 +36,18 @@ class SolController extends GetxController {
     if (response.statusCode == 200) {
       final dynamic data = jsonDecode(response.body)['photo_manifest'];
       solData.value = Sol.fromJson(data);
+      showPhotos();
     } else {
       retry.value = true;
       MySnackbarController.errorSnack('Failed to fetch');
     }
     isLoad.value = false;
+    update();
+  }
+
+  showPhotos() {
+    photos.addAll(solData.value!.photos.sublist(index, length + index));
+    index = length;
     update();
   }
 }
