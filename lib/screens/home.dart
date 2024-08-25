@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mars_rover/components/header.dart';
 import 'package:mars_rover/components/loading_indicator.dart';
 import 'package:mars_rover/components/sol_card.dart';
+import 'package:mars_rover/screens/rover.dart';
 import 'package:mars_rover/src/constant.dart';
 import 'package:mars_rover/src/controller/sol.dart';
 
@@ -24,6 +25,22 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     Get.delete<SolController>();
     super.dispose();
+  }
+
+  void toRover(List<dynamic> cameraTypes, int sol) {
+    Get.to(
+      () => RoverScreen(
+        cameraTypes: cameraTypes,
+        sol: sol,
+      ),
+      routeName: 'RoverScreen',
+      duration: const Duration(milliseconds: 300),
+      fullscreenDialog: true,
+      curve: Curves.easeIn,
+      preventDuplicates: true,
+      popGesture: true,
+      transition: Transition.rightToLeft,
+    );
   }
 
   @override
@@ -55,8 +72,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     shrinkWrap: true,
                     itemCount: controller.solData.value!.photos.length,
                     itemBuilder: (context, index) {
-                      return SolCard(
-                        photo: controller.solData.value!.photos[index],
+                      return InkWell(
+                        onTap: () {
+                          toRover(
+                              controller.solData.value!.photos[index].cameras,
+                              controller.solData.value!.photos[index].sol);
+                        },
+                        child: SolCard(
+                          photo: controller.solData.value!.photos[index],
+                        ),
                       );
                     },
                   );

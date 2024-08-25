@@ -9,7 +9,9 @@ import 'package:mars_rover/src/constant.dart';
 import 'package:mars_rover/src/controller/rover.dart';
 
 class RoverScreen extends StatefulWidget {
-  const RoverScreen({super.key});
+  final List<dynamic> cameraTypes;
+  final int sol;
+  const RoverScreen({super.key, required this.cameraTypes, required this.sol});
 
   @override
   State<RoverScreen> createState() => _RoverScreenState();
@@ -38,7 +40,10 @@ class _RoverScreenState extends State<RoverScreen> {
           shrinkWrap: true,
           children: [
             const HeaderSection(),
-            const FilterScreen(),
+            FilterScreen(
+              cameraTypes: widget.cameraTypes,
+              sol: widget.sol,
+            ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: kDefaultSpace * 2),
               decoration: BoxDecoration(

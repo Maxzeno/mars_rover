@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mars_rover/src/constant.dart';
 import 'package:mars_rover/src/controller/rover.dart';
-import 'package:mars_rover/src/utils.dart';
 
 class FilterScreen extends StatefulWidget {
-  const FilterScreen({super.key});
+  final List<dynamic> cameraTypes;
+  final int sol;
+  const FilterScreen({super.key, required this.cameraTypes, required this.sol});
 
   @override
   State<FilterScreen> createState() => _FilterScreenState();
@@ -12,37 +13,11 @@ class FilterScreen extends StatefulWidget {
 
 class _FilterScreenState extends State<FilterScreen> {
   String? _selectedCamera;
-  DateTime? _selectedDate;
-
-  final List<List<String>> _cameraTypes = [
-    ["FHAZ", "Front Hazard Avoidance Camera"],
-    ["RHAZ", "Rear Hazard Avoidance Camera"],
-    ["MAST", "Mast Camera", "✔", "", ""],
-    ["CHEMCAM", "Chemistry and Camera Complex"],
-    ["MAHLI", "Mars Hand Lens Imager"],
-    ["MARDI", "Mars Descent Imager"],
-    ["NAVCAM", "Navigation Camera"],
-    ["PANCAM", "Panoramic Camera"],
-    ["MINITES", "Miniature Thermal Emission Spectrometer (Mini-TES)"],
-  ];
-  void _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1800, 8, 6),
-      lastDate: DateTime.now(),
-    );
-    setState(() {
-      _selectedDate = picked;
-    });
-  }
 
   void _applyFilter() {
     debugPrint('Selected Camera: $_selectedCamera');
-    debugPrint('Selected Date: $_selectedDate');
 
-    RoverController.instance.fetchRover(
-        dateFormaterForRequest(_selectedDate), _selectedCamera ?? "all");
+    RoverController.instance.fetchRover(_selectedCamera ?? "all", widget.sol);
   }
 
   @override
@@ -105,47 +80,31 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                   ),
                 ),
-                dropdownMenuEntries:
-                    _cameraTypes.map<DropdownMenuEntry<String>>((List value) {
+                dropdownMenuEntries: widget.cameraTypes
+                    .map<DropdownMenuEntry<dynamic>>((dynamic value) {
                   return DropdownMenuEntry<String>(
-                    value: value[0],
-                    label: value[1],
+                    value: value,
+                    label: value,
                   );
                 }).toList(),
               ),
               ElevatedButton(
+                onPressed: _applyFilter,
                 style: ElevatedButton.styleFrom(
-                    fixedSize: const Size.fromHeight(55),
-                    backgroundColor: kWhiteColor,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(kDefaultSpace)))),
-                onPressed: () => _selectDate(context),
-                child: Text(
-                  _selectedDate == null
-                      ? 'Select Date'
-                      : dateFormater(_selectedDate!),
-                  style: const TextStyle(color: kBlackColor),
+                  fixedSize: const Size.fromHeight(55),
+                  backgroundColor: kGreyColor,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(kDefaultSpace))),
                 ),
-              ),
+                child: const Text(
+                  'Apply Filter',
+                  style: TextStyle(color: kWhiteColor),
+                ),
+              )
             ],
           ),
           kSizedBox,
-          kSizedBox,
-          ElevatedButton(
-            onPressed: _applyFilter,
-            style: ElevatedButton.styleFrom(
-              fixedSize: const Size.fromHeight(55),
-              backgroundColor: kGreyColor,
-              shape: const RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(kDefaultSpace))),
-            ),
-            child: const Text(
-              'Apply Filter',
-              style: TextStyle(color: kWhiteColor),
-            ),
-          )
         ],
       ),
     );

@@ -14,19 +14,13 @@ class RoverController extends GetxController {
   var isLoad = false.obs;
   var roverData = <RoverImage>[].obs;
 
-  Future fetchRover(String? dateString, String cameraName) async {
+  Future fetchRover(String cameraName, int sol) async {
     isLoad.value = true;
     roverData.value = [];
     update();
 
-    String url = '';
-    if (dateString == null) {
-      url =
-          'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?camera=$cameraName&api_key=$apiKey';
-    } else {
-      url =
-          'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=$dateString&camera=$cameraName&api_key=$apiKey';
-    }
+    String url =
+        'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=$sol&camera=$cameraName&api_key=$apiKey';
 
     debugPrint(url);
     final response = await http.get(
