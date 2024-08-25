@@ -14,9 +14,9 @@ String dataParseFormater(String? dateString) {
   return dateFormater(DateFormat('yyyy-MM-dd').parse(dateString));
 }
 
-String dateFormaterForRequest(DateTime? date) {
+String? dateFormaterForRequest(DateTime? date) {
   if (date == null) {
-    return '';
+    return null;
   }
   return DateFormat('yyyy-MM-dd').format(date);
 }
