@@ -1,5 +1,5 @@
 name: mars_rover
-description: "A new Flutter project."
+description: "Mars Rover"
 publish_to: "none"
 
 version: 1.0.0+1
@@ -27,7 +27,7 @@ dev_dependencies:
 
 flutter_native_splash:
   image: assets/images/mars-icon.jpg
-  color: "#f9f9f9"
+  color: "#273454"
   image_dark: assets/images/mars-icon.jpg
   color_dark: "#000000"
 
