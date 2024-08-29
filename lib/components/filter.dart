@@ -3,16 +3,17 @@ import 'package:mars_rover/components/button.dart';
 import 'package:mars_rover/src/constant.dart';
 import 'package:mars_rover/src/controller/rover.dart';
 
-class FilterScreen extends StatefulWidget {
+class FilterSection extends StatefulWidget {
   final List<dynamic> cameraTypes;
   final int sol;
-  const FilterScreen({super.key, required this.cameraTypes, required this.sol});
+  const FilterSection(
+      {super.key, required this.cameraTypes, required this.sol});
 
   @override
-  State<FilterScreen> createState() => _FilterScreenState();
+  State<FilterSection> createState() => _FilterSectionState();
 }
 
-class _FilterScreenState extends State<FilterScreen> {
+class _FilterSectionState extends State<FilterSection> {
   String? _selectedCamera;
 
   void _applyFilter() {

@@ -94,7 +94,7 @@ class _RoverScreenState extends State<RoverScreen> {
                     sol: widget.sol,
                     back: true,
                   ),
-                  FilterScreen(
+                  FilterSection(
                     cameraTypes: widget.cameraTypes,
                     sol: widget.sol,
                   ),

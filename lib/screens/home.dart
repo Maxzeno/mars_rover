@@ -20,7 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isScrollToTopBtnVisible = false;
 
   Future<void> showMore() async {
-    if (SolController.instance.photos.isEmpty) {
+    if (SolController.instance.photos.isEmpty ||
+        SolController.instance.isLoad.value) {
       return;
     }
 

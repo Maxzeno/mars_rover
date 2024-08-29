@@ -36,7 +36,7 @@ class MyImage extends StatelessWidget {
             const Center(child: CupertinoActivityIndicator(color: kRedColor)),
         errorWidget: (context, url, error) => Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Image.asset("assets/placeholder_image.png"),
+          child: Image.asset("assets/images/placeholder_image.png"),
         ),
       ),
     );

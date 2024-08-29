@@ -1,3 +1,5 @@
 * Will make the rover card a grid (on the row) or 2 on tablet screens and a 3 on laptop screen
 * Explore more into the NASA API
 * Will probably need to add filter for sol as well
+
+* apk on google drive https://drive.google.com/file/d/1-dlVbF1eZdFRzeT6hzStEnqh_7m_0PCA/view?usp=sharing
