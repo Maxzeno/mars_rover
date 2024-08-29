@@ -17,13 +17,16 @@ class SolController extends GetxController {
   var isLoadMore = false.obs;
   var solData = Rxn<Sol>();
   var photos = <Photos>[].obs;
-  var index = 0;
-  var length = 10;
+  var index = 0.obs;
+  var length = 10.obs;
 
   Future fetchSol() async {
     retry.value = false;
     isLoad.value = true;
     solData.value = null;
+    photos.value = [];
+    index.value = 0;
+    length.value = 10;
     update();
 
     String url =
@@ -36,9 +39,10 @@ class SolController extends GetxController {
 
     if (response.statusCode == 200) {
       final dynamic data = jsonDecode(response.body)['photo_manifest'];
+
       solData.value = Sol.fromJson(data);
-      photos.addAll(solData.value!.photos.sublist(index, length + index));
-      index = length;
+      photos.addAll(solData.value!.photos.sublist(index.value, length.value));
+      index.value = length.value;
     } else {
       retry.value = true;
       MySnackbarController.errorSnack('Failed to fetch');
@@ -52,9 +56,9 @@ class SolController extends GetxController {
     update();
 
     await Future.delayed(const Duration(seconds: 1));
-
-    photos.addAll(solData.value!.photos.sublist(index, length + index));
-    index = length;
+    photos.addAll(
+        solData.value!.photos.sublist(index.value, length.value + index.value));
+    index.value += length.value;
     isLoadMore.value = false;
     update();
   }
